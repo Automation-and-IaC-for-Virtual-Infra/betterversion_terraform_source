@@ -1,0 +1,73 @@
+version: 0.2
+
+env:
+  parameter-store:
+    AWS_DEFAULT_REGION_PARAM: "/betterversion/region"
+    SSM_ACCESS_KEY_PARAM: "/betterversion/access-key"
+    SSM_SECRET_KEY_PARAM: "/betterversion/private-key"
+    SSM_SSH_PUBLIC_KEY: "/betterversion/ssh-public-key"
+  variables:
+    TF_DIR: "."
+    TF_STATE_S3_BUCKET: "khuong-bucket-tfstate"
+    TF_STATE_S3_KEY: "2025/terraform.tfstate"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "----- INSTALL PHASE -----"
+      - set -eo pipefail
+      - yum -y update || true
+      - yum -y install yum-utils jq || true
+      # Install Terraform
+      - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+      - yum -y install terraform
+      - terraform --version
+
+  pre_build:
+    commands:
+      - set -eo pipefail
+      - echo "Reading AWS credentials from SSM Parameter Store"
+      # Get default region
+      - if [ -n "$AWS_DEFAULT_REGION_PARAM" ]; then
+          export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION_PARAM;
+        fi
+      # Get access key
+      - if [ -n "$SSM_ACCESS_KEY_PARAM" ]; then
+          export AWS_ACCESS_KEY_ID=$SSM_ACCESS_KEY_PARAM;
+        fi
+      # Get secret key
+      - if [ -n "$SSM_SECRET_KEY_PARAM" ]; then
+          export AWS_SECRET_ACCESS_KEY=$SSM_SECRET_KEY_PARAM;
+        fi
+
+      - echo "Configure aws cli default region and output"
+      - aws configure set region "$AWS_DEFAULT_REGION"
+      - aws configure set output json
+      - echo "Verify identity (caller identity)"
+      - aws sts get-caller-identity --region "$AWS_DEFAULT_REGION" || (echo "Failed to get caller identity — check SSM params & CodeBuild role permissions" && exit 1)
+      - echo "Switching to TF_DIR=$TF_DIR"
+      - cd "$TF_DIR"
+
+  build:
+    commands:
+      - echo "----- BUILD PHASE -----"
+      - set -eo pipefail
+      - export TF_VAR_public_key="$SSM_SSH_PUBLIC_KEY"
+      - terraform init
+      - echo "terraform validate ..."
+      - terraform validate || (echo "Error:terraform validate failed" && exit 1)
+      - echo "terraform plan ..."
+      - terraform plan -out=tfplan -input=false || (echo "Error:terraform plan failed" && exit 1)
+
+  post_build:
+    commands:
+      - echo "----- POST BUILD PHASE -----"
+      - echo "Build completed on `date`"
+
+artifacts:
+  files:
+    - '**/*'
+  exclude:
+    - '$TF_DIR/.terraform'
