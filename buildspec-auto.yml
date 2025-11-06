@@ -7,7 +7,7 @@ env:
     SSM_SECRET_KEY_PARAM: "/betterversion/private-key"
     SSM_SSH_PUBLIC_KEY: "/betterversion/ssh-public-key"
   variables:
-    TF_DIR: "/test-errors"
+    TF_DIR: "."
     TF_STATE_S3_BUCKET: "khuong-bucket-tfstate"
     TF_STATE_S3_KEY: "2025/terraform.tfstate"
 
