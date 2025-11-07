@@ -17,5 +17,5 @@ data "aws_partition" "current" {}
 locals {
   apply_timestamp = timestamp()
   vn_timestamp    = formatdate("YYYY-MM-DD hh:mm:ss", timeadd(local.apply_timestamp, "7h"))
-  project         = "generated-project"
+  project         = "ubuntu-webserver-project"
 }
