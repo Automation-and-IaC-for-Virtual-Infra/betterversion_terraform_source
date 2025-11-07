@@ -1,11 +1,11 @@
 region = "ap-southeast-1"
 asg_ami_id = "ami-0abcde1234567890f"
-ec2_ec2_instance_ami = "{'Fn::ImportValue': 'resolve:ssm:/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id'}"
-ec2_ec2_instance_instance_type = "t3.small"
-ec2_ec2_instance_subnet_id = "{'Ref': '1000000000000002'}"
-ec2_ec2_instance_tags = {
-  Name = "UbuntuNginxInstance"
+ec2_ubuntuwebserverinstance_ami = "ami-0a068019672138258"
+ec2_ubuntuwebserverinstance_instance_type = "t3.small"
+ec2_ubuntuwebserverinstance_subnet_id = "{'Ref': '2138405961738405'}"
+ec2_ubuntuwebserverinstance_tags = {
+  Name = "UbuntuWebServerInstance"
 }
-sg_security_group_name = "Security Group"
-sg_security_group_vpc_id = "{'Ref': '1000000000000001'}"
-sg_security_group_description = "Allow HTTP and SSH access"
+sg_ubuntuwebserversecuritygroup_name = "UbuntuWebServerSecurityGroup"
+sg_ubuntuwebserversecuritygroup_vpc_id = "{'Ref': '1029384756102938'}"
+sg_ubuntuwebserversecuritygroup_description = "Allow HTTP and SSH access"
