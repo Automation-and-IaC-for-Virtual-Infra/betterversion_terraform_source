@@ -28,26 +28,26 @@ output "vpc_information" {
 
 
 
-output "ec2_ec2_instance_id" { value = aws_instance.ec2_instance.id }
-output "ec2_ec2_instance_public_ip" { value = aws_instance.ec2_instance.public_ip }
-output "server_information_ec2_instance" {
+output "ec2_ubuntuwebserverinstance_id" { value = aws_instance.ubuntuwebserverinstance.id }
+output "ec2_ubuntuwebserverinstance_public_ip" { value = aws_instance.ubuntuwebserverinstance.public_ip }
+output "server_information_ubuntuwebserverinstance" {
   description = "Server detail information."
   value = {
-    name       = "EC2 Instance"
-    public_ip  = aws_instance.ec2_instance.public_ip
-    private_ip = aws_instance.ec2_instance.private_ip
-    service_id = aws_instance.ec2_instance.id
+    name       = "UbuntuWebServerInstance"
+    public_ip  = aws_instance.ubuntuwebserverinstance.public_ip
+    private_ip = aws_instance.ubuntuwebserverinstance.private_ip
+    service_id = aws_instance.ubuntuwebserverinstance.id
     status     = 1
     additional_information = {}
     created_at = local.vn_timestamp
     updated_at = local.vn_timestamp
   }
 }
-output "security_groups_ec2_instance" {
+output "security_groups_ubuntuwebserverinstance" {
   description = "Security group detail information."
   value = {
-    name        = "EC2 Instance Security Groups"
-    service_id  = aws_instance.ec2_instance.vpc_security_group_ids
+    name        = "UbuntuWebServerInstance Security Groups"
+    service_id  = aws_instance.ubuntuwebserverinstance.vpc_security_group_ids
     status      = 1
     additional_information = {}
     created_at  = local.vn_timestamp
@@ -55,13 +55,13 @@ output "security_groups_ec2_instance" {
   }
 }
 
-output "sg_security_group_id" { value = aws_security_group.security_group.id }
+output "sg_ubuntuwebserversecuritygroup_id" { value = aws_security_group.ubuntuwebserversecuritygroup.id }
 
-output "security_group_information_security_group" {
+output "security_group_information_ubuntuwebserversecuritygroup" {
   description = "Security group detail information."
   value = {
-    name       = var.sg_security_group_name
-    service_id = aws_security_group.security_group.id
+    name       = var.sg_ubuntuwebserversecuritygroup_name
+    service_id = aws_security_group.ubuntuwebserversecuritygroup.id
     status     = 1
     additional_information = {}
     created_at = local.vn_timestamp
