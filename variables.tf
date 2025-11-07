@@ -10,46 +10,46 @@ variable "asg_ami_id" {
   default     = "ami-0abcde1234567890f"
 }
 
-variable "ec2_ec2_instance_ami" {
-  description = "EC2 EC2 Instance AMI"
+variable "ec2_ubuntuwebserverinstance_ami" {
+  description = "EC2 UbuntuWebServerInstance AMI"
   type        = string
-  default     = "{'Fn::ImportValue': 'resolve:ssm:/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id'}"
+  default     = "ami-0a068019672138258"
 }
 
-variable "ec2_ec2_instance_instance_type" {
-  description = "EC2 EC2 Instance instance type"
+variable "ec2_ubuntuwebserverinstance_instance_type" {
+  description = "EC2 UbuntuWebServerInstance instance type"
   type        = string
   default     = "t3.small"
 }
 
-variable "ec2_ec2_instance_subnet_id" {
-  description = "EC2 EC2 Instance subnet id"
+variable "ec2_ubuntuwebserverinstance_subnet_id" {
+  description = "EC2 UbuntuWebServerInstance subnet id"
   type        = string
-  default     = "{'Ref': '1000000000000002'}"
+  default     = "{'Ref': '2138405961738405'}"
 }
 
-variable "ec2_ec2_instance_tags" {
-  description = "EC2 EC2 Instance tags"
+variable "ec2_ubuntuwebserverinstance_tags" {
+  description = "EC2 UbuntuWebServerInstance tags"
   type        = map(string)
   default     = {
-  Name = "UbuntuNginxInstance"
+  Name = "UbuntuWebServerInstance"
 }
 }
 
-variable "sg_security_group_name" {
+variable "sg_ubuntuwebserversecuritygroup_name" {
   description = "Security group name"
   type        = string
-  default     = "Security Group"
+  default     = "UbuntuWebServerSecurityGroup"
 }
 
-variable "sg_security_group_vpc_id" {
-  description = "VPC id for SG Security Group"
+variable "sg_ubuntuwebserversecuritygroup_vpc_id" {
+  description = "VPC id for SG UbuntuWebServerSecurityGroup"
   type        = string
-  default     = "{'Ref': '1000000000000001'}"
+  default     = "{'Ref': '1029384756102938'}"
 }
 
-variable "sg_security_group_description" {
-  description = "Description for SG Security Group"
+variable "sg_ubuntuwebserversecuritygroup_description" {
+  description = "Description for SG UbuntuWebServerSecurityGroup"
   type        = string
   default     = "Allow HTTP and SSH access"
 }
