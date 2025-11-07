@@ -22,16 +22,16 @@ resource "aws_security_group" "app" {
   }
 }
 
-resource "aws_security_group" "security_group" {
-  name        = var.sg_security_group_name
-  description = var.sg_security_group_description
+resource "aws_security_group" "ubuntuwebserversecuritygroup" {
+  name        = var.sg_ubuntuwebserversecuritygroup_name
+  description = var.sg_ubuntuwebserversecuritygroup_description
   vpc_id      = module.vpc.vpc_id
 
 
 
   tags = {
     Project = local.project
-    Name    = var.sg_security_group_name
+    Name    = var.sg_ubuntuwebserversecuritygroup_name
   }
 }
 
