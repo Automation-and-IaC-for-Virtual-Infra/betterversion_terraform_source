@@ -16,7 +16,7 @@ phases:
     runtime-versions:
       python: 3.11
     commands:
-      - echo "------- INSTALL PHASE -------"
+      - echo "------- INSTALL PHASE -----"
       - set -eo pipefail
       - yum -y update || true
       - yum -y install yum-utils jq || true
