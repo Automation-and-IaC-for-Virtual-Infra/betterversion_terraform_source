@@ -4,10 +4,11 @@ variable "region" {
   default     = "ap-southeast-1"
 }
 
+
 variable "ec2_ec2_instance_ami" {
   description = "EC2 EC2 Instance AMI"
   type        = string
-  default     = "ami-0abcdef1234567890"
+  default     = "ami-0533f2ba136362541"
 }
 
 variable "ec2_ec2_instance_instance_type" {
@@ -19,7 +20,7 @@ variable "ec2_ec2_instance_instance_type" {
 variable "ec2_ec2_instance_subnet_id" {
   description = "EC2 EC2 Instance subnet id"
   type        = string
-  default     = "ubuntu_public_subnet_a"
+  default     = "public_subnet_a"
 }
 
 variable "ec2_ec2_instance_tags" {
@@ -35,6 +36,7 @@ variable "sg_security_group_name" {
   type        = string
   default     = "Security Group"
 }
+
 
 variable "sg_security_group_description" {
   description = "Description for SG Security Group"
